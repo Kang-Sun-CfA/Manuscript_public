@@ -1,0 +1,529 @@
+%% Copernicus Publications Manuscript Preparation Template for LaTeX Submissions
+%% ---------------------------------
+%% This template should be used for copernicus.cls
+%% The class file and some style files are bundled in the Copernicus Latex Package, which can be downloaded from the different journal webpages.
+%% For further assistance please contact Copernicus Publications at: production@copernicus.org
+%% http://publications.copernicus.org/for_authors/manuscript_preparation.html
+
+
+%% Please use the following documentclass and journal abbreviations for discussion papers and final revised papers.
+
+
+%% 2-column papers and discussion papers
+\documentclass[amt,manuscript]{copernicus}
+
+
+
+%% Journal abbreviations (please use the same for discussion papers and final revised papers)
+
+% Archives Animal Breeding (aab)
+% Atmospheric Chemistry and Physics (acp)
+% Advances in Geosciences (adgeo)
+% Advances in Statistical Climatology, Meteorology and Oceanography (ascmo)
+% Annales Geophysicae (angeo)
+% ASTRA Proceedings (ap)
+% Atmospheric Measurement Techniques (amt)
+% Advances in Radio Science (ars)
+% Advances in Science and Research (asr)
+% Biogeosciences (bg)
+% Climate of the Past (cp)
+% Drinking Water Engineering and Science (dwes)
+% Earth System Dynamics (esd)
+% Earth Surface Dynamics (esurf)
+% Earth System Science Data (essd)
+% Fossil Record (fr)
+% Geographica Helvetica (gh)
+% Geoscientific Instrumentation, Methods and Data Systems (gi)
+% Geoscientific Model Development (gmd)
+% Geothermal Energy Science (gtes)
+% Hydrology and Earth System Sciences (hess)
+% History of Geo- and Space Sciences (hgss)
+% Journal of Sensors and Sensor Systems (jsss)
+% Mechanical Sciences (ms)
+% Natural Hazards and Earth System Sciences (nhess)
+% Nonlinear Processes in Geophysics (npg)
+% Ocean Science (os)
+% Proceedings of the International Association of Hydrological Sciences (piahs)
+% Primate Biology (pb)
+% Scientific Drilling (sd)
+% SOIL (soil)
+% Solid Earth (se)
+% The Cryosphere (tc)
+% Web Ecology (we)
+% Wind Energy Science (wes)
+
+
+%% \usepackage commands included in the copernicus.cls:
+%\usepackage[german, english]{babel}
+%\usepackage{tabularx}
+%\usepackage{cancel}
+%\usepackage{multirow}
+%\usepackage{supertabular}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+\usepackage{amsthm}
+\usepackage{float}
+%\usepackage{subfig}
+%\usepackage{rotating}
+
+
+\begin{document}
+
+\title{Deriving the slit functions from OMI solar observations and its implications for ozone-profile retrieval}
+
+
+% \Author[affil]{given_name}{surname}
+
+\Author[1]{Kang}{Sun}
+\Author[1]{Xiong}{Liu}
+\Author[1]{Guanyu}{Huang}
+\Author[1]{Gonzalo}{Gonz\'{a}lez Abad}
+\Author[1]{Zhaonan}{Cai}
+\Author[1]{Kelly}{Chance}
+\Author[2]{Kai}{Yang}
+\affil[1]{Harvard-Smithsonian Center for Astrophysics, 60 Garden Street, Cambridge, MA, USA}
+\affil[2]{Department of Atmospheric and Oceanic Science, University of Maryland, College Park, MD, USA}
+
+%% The [] brackets identify the author with the corresponding affiliation. 1, 2, 3, etc. should be inserted.
+
+
+
+\runningtitle{OMI on-orbit slit function}
+
+\runningauthor{K. Sun et al.}
+
+\correspondence{Kang Sun (kang.sun@cfa.harvard.edu)}
+
+
+
+\received{}
+\pubdiscuss{} %% only important for two-stage journals
+\revised{}
+\accepted{}
+\published{}
+
+%% These dates will be inserted by Copernicus Publications during the typesetting process.
+
+
+\firstpage{1}
+
+\maketitle
+
+
+
+\begin{abstract}
+The Ozone Monitoring Instrument (OMI) has been successfully measuring the Earth's atmospheric composition since 2004, but the on-orbit behavior of its slit functions has not been thoroughly characterized. Preflight measurements of slit functions have been used as a static input in many OMI retrieval algorithms. This study derives on-orbit slit functions from the OMI irradiance spectra assuming various function forms, including standard and super Gaussian functions and a stretch to the preflight slit functions. The on-orbit slit functions in the UV bands show U-shaped cross-track dependences that cannot be fully represented by the preflight ones. The full widths at half maximum (FWHM) of the stretched preflight slit functions for detector pixels at large viewing angles are up to $20~\%$ larger than the nadir pixels for the UV1 band and $5~\%$ larger for the UV2 band. Nonetheless, the on-orbit changes of OMI slit functions are found to be insignificant over time after accounting for the solar activity, despite of the decaying of detectors and the occurrence of OMI row anomaly. Applying the derived on-orbit slit functions to ozone-profile retrieval shows substantial improvements over the preflight slit functions based on comparisons with ozonesonde validations.
+\end{abstract}
+
+
+
+\introduction  %% \introduction[modified heading if necessary]
+The Dutch-Finnish Ozone Monitoring Instrument (OMI) on board the NASA Aura satellite has been measuring the direct sunlight and backscattered sunlight from the Earth since 2004. Spectrally, the OMI instrument incorporates two 2-D charge-coupled device (CCD) detectors for the ultraviolet (UV) and visible (VIS) bands. The UV band is optically separated into the UV1 band ($264$--$311$ nm, $\sim0.6$ nm resolution) and the UV2 band ($307$--$383$ nm, $\sim0.4$ nm resolution), and the VIS band covers $349$--$504$ nm at $\sim0.6$ nm resolution~\citep{dirksen2006prelaunch}. Spatially, the OMI instrument has a wide, $115~^{\circ}$ field of view, which is divided into 30 cross-track positions in the UV1 band and 60 cross-track positions in the UV2 and VIS bands. At the nadir point, the spatial resolution is $13\times 48$ km$^2$ for UV1 and $13\times 24$ km$^2$ for UV2/VIS, significantly finer than the nadir resolutions of existing spaceborne measurements over similar spectral ranges like GOME, SCIAMACHY, GOME-2, and OMPS. The spectral and spatial coverages of OMI enable retrievals of various key constituents of the Earth's atmosphere, including ozone, nitrogen dioxide, sulfur dioxide, formaldehyde, BrO, water vapor, and many others, with daily global coverage at the equator~\citep{levelt2006}. In addition to abundances of atmospheric species, OMI delivers products like cloud fraction/height, aerosol optical depth, surface UV radiation, and solar activity proxies~\citep{tanskanen2006surface,torres2007aerosols,vasilkov2007evaluation,deland2013the}.
+
+The slit function, also called the instrument transfer function (ITF), instrumental spectral response function (ISRF), or instrument line shape (ILS) in the literature, is the instrument's response to a Dirac delta function in the spectral domain~\citep{dirksen2006prelaunch,Beirle2016parameterizing,sun2017}. Therefore, the OMI observed spectra can be modeled as a convolution of the OMI slit functions and the native resolution spectra. A thorough understanding of the OMI slit function is crucial to accurately modeling the OMI spectra and retrieving atmospheric constituents/properties. The OMI slit functions vary in both the spectral dimension (columns) and the spatial dimension (rows, or cross-track direction) of the 2-D detectors and have been measured accurately in a preflight experiment~\citep{dirksen2006prelaunch}. These preflight slit functions have been adopted in a wide range of operational OMI retrieval algorithms~\citep{kurosu2004preliminary,veefkind2006total,chan2014glyoxal,wang2014water,abad2015updated,geffen2015improved,li2017new}. However, it is still unclear if the preflight slit functions adequately represent the on-orbit slit functions for OMI, given the impact of the launching process and the contrasts between laboratory and space conditions. Additionally, the on-orbit slit functions may evolve over time due to instrumental issues, as observed in some other satellite instruments~\citep{desmedt2012improved,miles2015tropospheric,Beirle2016parameterizing,sun2017}. The optical degradation of OMI has been markedly small over the mission, but the row anomaly (RA) appeared in 2007 and had made significant impact on about one third of cross-track positions since January 2009~\citep{schenkeveld2016}. The impact of RA on the OMI slit functions is still poorly understood.
+
+The SAO ozone-profile retrieval algorithm derives on-orbit slit functions from averaged OMI solar observations in 2005--2007, assuming standard Gaussian slit function form, which showed better performance than using the complex preflight slit functions~\citep{liu2010ozone}. This indicates that although no significant changes in the OMI slit functions have been noted over the mission, the on-orbit slit functions may differ from the preflight at the ozone retrieval windows. Therefore, it is necessary to reevaluate the OMI slit functions using on-orbit data. To this end, we investigate the temporal variation of the slit function using more than 10 years of OMI irradiance data, compare the on-orbit slit functions derived from irradiance with the preflight ones, and evaluate multiple on-orbit slit function forms by validating the ozone profile retrieved using different slit functions with ozonesonde observations.
+
+\section{Instrument and data analyses}
+
+\subsection{OMI instrument and its solar measurements}
+The OMI instrument is a push-broom grating spectrometer flying in a $705$-km sun-synchronous polar orbit with $\sim$13:45 equator-crossing time. The two 2-D CCD detectors have 780 columns (the spectral dimension, along the flight direction) and 576 rows (the spatial dimension, perpendicular to the flight direction). In the global mode that is mostly used in Earth observation, the 576 spatial pixels are selectively binned into 60 (UV2/VIS) or 30 (UV1) rows, corresponding to the same numbers of cross-track positions at the Earth's surface. Anomalous behavior of some rows started in June 2007 and became much more significant in January 2009. This so-called ``row anomaly'' (RA) permanently affects radiances of rows 25--42 (out of 1--60) and 54--55 of the UV2/VIS bands and occasionally affects rows 43--53. The RA rows in UV1 have similar relative positions, although all UV1 rows are affected in the northern parts of orbits. The RA is believed to be caused by loose thermal insulating materials partially blocking OMI's Earth-observing field of view. Detailed description of the RA can be found at \citet{schenkeveld2016}.
+
+OMI also has an irradiance view port for solar calibration. Solar spectra, shown in Fig.~\ref{ss_demo}, are measured once per day near the northern terminator of an orbit. The direct sunlight is attenuated by an optical mesh, then reflected by one of the solar diffusers (quartz volume diffuser, regular aluminum, or backup aluminum), and finally reflected by a folding mirror to the remainder of the optical system that is identical to the Earth radiance measurement. The blocking effects that caused the RA in the radiance measurement are not observed in the irradiance; the only noted RA-related impact on irradiance is that the RA rows in the UV1 band show faster optical degradation due to additional solar exposure from RA reflections~\citep{schenkeveld2016}.
+
+The OMI solar irradiance is also used to monitor the solar activity through the variations of deep solar lines, which generally get shallower when the Sun is more active. The most used solar activity proxies are the core-to-wing indices of the Mg II line at $280$ nm, Ca II K line at $393.4$ nm, and Ca II H line at $396.8$ nm (labeled in Fig.~\ref{ss_demo}). The OMI Mg II index varied by $\sim10\%$ between solar cycle minimum and maximum. Although the Ca II indices are well correlated with the Mg II index, their relative variations are smaller by factors of 7--9~\citep{deland2013the}. The irradiance spectrum at other wavelengths has weaker correspondence with the solar cycle, generally $<0.2\%$ between cycle minimum and maximum in the UV2/VIS bands and $0.5$--$1\%$ in the UV1 band~\citep{marchenko2016solar}.
+
+\begin{figure*}[tbhp]
+
+\includegraphics[width=12cm]{figures/ss_demo.png}
+\caption{Solar irradiance spectra observed by the UV1, UV2, and VIS bands of OMI (overlapped spectral regions are not shown). The background high-resolution solar reference spectrum in gray color is from \citet{dobber2008high}. Deep solar lines used to monitor solar activity are labeled. The colored horizontal bars indicate the spectral windows within which slit functions are fitted in Sect.~\ref{slit_temporal_section}.}
+\label{ss_demo}
+\end{figure*}
+
+\subsubsection{OMI slit functions}
+
+The OMI slit functions were determined during the preflight characterization for each spectral pixel and cross-track position. The measured slit functions at discrete wavelengths were then fitted using a combination of a standard Gaussian and a flat-top function, defined at a wavelength grid $\Delta \lambda$:
+\begin{equation}
+S_{\textnormal{pre}}(\Delta \lambda) = A_0 \exp \left[-\left(\frac{\Delta \lambda-\lambda_0}{w_0} \right)^2 \right] + A_1 \exp \left[-\left(\frac{\Delta \lambda-\lambda_1}{w_1} \right)^4\right],
+\label{eq1}
+\end{equation}
+where $A_0/A_1$ is the relative amplitude of the standard and flat-top Gaussian components; $\lambda_0$ and $\lambda_1$ are their central positions; and $w_0$ and $w_1$ determine their widths. For the UV1 band, only the standard Gaussian component is necessary ($\lambda_0$ and $A_1$ are zero). The accuracies of these preflight slit functions were demonstrated to be better than $2\%$ within $\pm 2$ FWHM (full width at half maximum) and $\sim 3\%$ between $\pm2$ FWHM and $\pm3$ FWHM during the preflight test~\citep{dobber2008high}.
+
+Information on the on-orbit slit function can be retrieved by fitting the observed solar irradiance with a high-resolution solar reference spectrum (shown in Fig.~\ref{ss_demo}) and some assumed slit function forms. Wavelength shift/squeeze terms and a polynomial baseline are also included in the fitting. Two high-resolution solar reference spectra are tested: the KNMI spectrum ~\citep[$0.025$ nm resolution and $0.01$ nm sampling,][]{dobber2008high} and the SAO2010 spectrum~\citep[$0.04$ nm resolution and $0.01$ nm sampling,][]{chance2010improved}. They give very similar results for the derived slit functions. The KNMI spectrum is used in the following results due to its better radiometric calibration in the OMI spectral range. This slit function fitting method has been described in \citet{sun2017}, where multiple analytical and numerical function forms were tested to represent the slit functions of the OCO-2 instrument. These function forms were also tested for OMI. The (a)symmetric standard Gaussian, super Gaussian, and fitting a homogeneous stretch to the preflight slit functions were found to produce stable fitting results. The other function forms (stretch/sharpen, hybrid Gaussians) became increasingly unstable later in the OMI mission, when the signal-to-noise ratio (SNR) of solar spectra was degraded. The Gaussian function family can be generalized as the asymmetric super Gaussian function~\citep{Beirle2016parameterizing}:
+\begin{equation}
+S(\Delta \lambda) = \exp \left(-\left|\frac{\Delta\lambda}{w+\textnormal{sgn}(\Delta \lambda)a_w}\right|^k \right),
+\end{equation}
+where $w$ is the half width at $1/e$, $k$ is the shape parameter, $a_w$ is the asymmetry parameter, and $\textnormal{sgn}()$ is the sign function. If $k$ is fixed at $2$, the slit function is standard Gaussian; if $a_w \neq 0$, the slit function is asymmetric. The homogeneously stretched preflight slit function is simply
+\begin{equation}
+S(\Delta \lambda) = S_{\textnormal{pre}}\left( {\Delta \lambda}/{\textnormal{stretch}} \right).
+\end{equation}
+Examples of the preflight slit functions and the fitted function forms are illustrated in Fig.~\ref{slit_shape} for the fitting window $343$--$356$ nm in the UV2 band.
+
+\begin{figure}[t]
+\includegraphics[width=8.3cm]{figures/slitshape_compare.pdf}
+\caption{(a) Preflight slit functions at the median wavelength of the spectral window $343$--$356$ nm ($349.5$ nm). The spectral variations of preflight slit functions over this window are small (see the second row of Fig.~\ref{xtrack_compare} for the range of preflight slit function width in UV2). (b-d) Derived slit functions for the spectral window $343$--$356$ nm by fitting a stretch factor to the preflight slit function, super Gaussian function, and standard Gaussian function, respectively. The solar spectrum used in the fitting is the average OMI irradiance from 2005 to 2007. Adding the asymmetric parameter in the super/standard Gaussian fitting gives little difference. Only half of the UV2 cross track positions (1--30) are shown as the other half are essentially a mirror image (see the second row of Fig.~\ref{xtrack_compare}).}
+\label{slit_shape}
+\end{figure}
+
+In the slit function fitting algorithm, the slit function is generally assumed to be constant within the fitting spectral window. When fitting a stretch to the preflight slit function, the preflight slit function at the median wavelength is applied to the entire window. Spectrally resolved stretch of the preflight slit functions was also tested by stretching spectrally dependent preflight slit functions over sliding and overlapping windows, but the results were influenced by radiometric and solar reference spectrum uncertainties over short wavelength ranges. The ozone profiles retrieved assuming spectrally constant slit functions also outperform those retrieved using spectrally resolved slit functions. Consequently, the derived slit functions are assumed to be spectrally constant over each fitting window.
+
+%This simplification is called ``spectrally constant stretch'' in the following analyses. However, the widths of OMI preflight slit functions show substantial variation for different wavelengths, especially for the UV1 band. Hence a spectrally resolved fitting was also tested: a single stretch factor was fitted in a running spectral window and then smoothed in the spectral dimension to reduce random errors. This is called ``spectrally resolved stretch'' in the following analyses. % considering removing the ``spectrally resolved'' case. The results do not look good and complicate things.
+
+\subsection{SAO OMI ozone-profile retrieval algorithm and validation}
+
+The optical path of the solar irradiance and the earth radiance measurements are very similar, but it is still an open question whether the slit functions are identical for the solar and earthshine spectra. Besides, the derived on-orbit slit functions are sometimes simplified compared to the preflight ones. Therefore, it is necessary to apply the on-orbit slit functions derived from solar irradiance to the earthshine spectra fitting algorithm and validate the retrieval results. In this study, the SAO OMI ozone-profile retrieval algorithm is used to test different options of slit functions. The OMI ozone-profile retrievals have substantially higher relative accuracy than other OMI products (e.g., SO$_2$, NO$_2$, HCHO, etc.), and there have been extensive validations for the ozone-profile product. Therefore, the OMI ozone-profile retrieval is the first choice to test the on-orbit slit functions.
+
+The SAO OMI ozone-profile retrieval algorithm was described in detail by \citet{liu2010ozone} with further improvements by \citet{bak2013improvement,bak2016improvement} and validated extensively against ozonesonde and MLS observations~\citep{huang2017,huang2017mls}. In the operational SAO ozone-profile algorithm, partial ozone columns (in Dobson Unit, DU, 1 DU = $2.69\times 10^{16}$ molecules cm$^{-2}$) are retrieved at 24 layers from the surface to about $60$ km using the optimal estimation technique. Stratospheric ozone column (SOC) and tropospheric ozone column (TOC) are derived from the OMI ozone profile using the thermal tropopause heights, defined by the lapse rate criterion~\citep{wmo1957definition}, from the National Center for Environmental Protection (NCEP) reanalysis. The total degree of freedom for signal (DFS) of the retrieved ozone profile is $6$--$7$ with $5$--$7$ in the stratosphere and $0$--$1.5$ in the troposphere. Fitting windows in both UV1 ($270$--$309$ nm) and UV2 ($311$--$330$ nm) are used to retrieve ozone abundance at different altitudes. Wavelengths around Mg II ($280$ nm) and Mg I ($285$ nm) lines are not included in the retrieval. Because of the mismatch of cross-track positions between UV1 and UV2, UV2 spectra at every two adjacent cross-track positions are co-added to match the UV1 spatial resolution. When applying the preflight slit functions, they are also averaged every two cross-track positions for UV2. Hence the retrievals are performed at the UV1 spatial resolution. In addition, OMI radiances are pre-calibrated based on two-day-average radiance differences in the tropics between OMI spectra and spectral simulations using zonal mean MLS ozone profiles at pressure less than the 215 hPa level and climatological ozone profiles at pressure greater than the 215 hPa level. This ``soft calibration'' significantly reduces the OMI L1B calibration errors that are dependent on both wavelength and cross-track positions.
+% added by Huang. cite two validation paper.
+% "...against ozonesonde observations and MLS retrievals.." => "...against ozonesonde and MLS observations..."
+% you may want to indicate that the NCEP tropopause height is based on the thermal definition. One reviewer questioned me on that.
+
+In this study, the ozone profiles are retrieved using four different options of slit functions: the preflight as well as standard Gaussian, super Gaussian, and stretched preflight derived from OMI irradiance. The soft calibration is turned off to make fair comparisons between slit functions, because the soft calibration algorithm is currently only implemented with standard Gaussian slit functions.  The other retrieval options are kept the same as the operational algorithm whenever it is possible. This slit function comparison is named as the ``two-band'' case. Another case is also tested by using only the UV2 window ($311$--$330$ nm). In this ``UV2-only'' case, there are no compounding factors induced by averaging the adjacent UV2 spectra and preflight slit functions. The OMI ozone profiles are retrieved at 60 cross-track positions, instead of 30 cross-track positions for the two-band case. A ``UV1-only'' case is also tested with a subset of ozonesondes, but found to be insensitive to different options of slit functions (although the on-orbit/preflight slit functions are quite different for the UV1 band, see the first row of Fig.~\ref{xtrack_compare}).
+
+Ozonesonde observations are widely used to validate satellite ozone-profile retrievals~\citep{RN2010,RN2055,RN9555,RN1953,RN1965,RN1989,huang2017}. We use the same global ozonesonde dataset described by \citet{huang2017} but only during 2004--2008. The ozonesonde profiles extend from the surface up to $\sim35$ km with vertical resolution of $100$--$150$ m, $3$--$5\%$ precision, and $5$--$10\%$ accuracy~\citep{komhyr1986operations,komhyr1995comparison,johnson2002ecc,smit2007assessment,deshler2008atmospheric}. When compared to the OMI ozone profiles that have much lower vertical resolution, ozonesonde profiles are first integrated into the corresponding OMI layers and then degraded to the OMI vertical resolution using the OMI a priori ozone profile and Averaging Kernels (AK). The locations of the ozonesondes are shown in Fig.~\ref{sonde_map}, where the size of circles denotes the number of successful ozonesonde validations for the two-band case in 2004--2008, and the color denotes mean bias between the tropospheric ozone column retrieved in the two-band case using standard Gaussian slit functions and the tropospheric ozone column from ozonesonde with OMI AK applied. A successful validation is defined when OMI retrievals using different slit functions and the collocated ozonesonde profile all pass the filtering criteria. The OMI/ozonesonde data filtering criteria in this study are very similar to \citet{huang2017}: OMI effective cloud fraction less than $0.3$; OMI solar zenith angle less than $75~^{\circ}$; ozonesondes that reach an altitude of at least $30$ km and have data gaps no greater than $3$ km; ozonesonde correction factors (CFs), if exist, in the range of $0.85$ to $1.15$. We did not apply these CFs because it is not clear that they should be applied to the ozone profiles, especially for the troposphere, and CFs are only available for a limited fraction of ozonesondes~\citep{morris2013use}. For each filtered ozonesonde profile, the nearest filtered OMI profile within $\pm1~^{\circ}$ latitude, $\pm1~^{\circ}$ longitude, and $\pm6$ hours is used for validation on the individual profile basis. The validation in this work also has the following important differences from \citet{huang2017}:
+%"We use the same global ozonesonde dataset described by Huang et al. (2017)..." => "We use the same global ozonesonde dataset described by Huang et al.(2017) but only during 2004-2008."
+
+(1) \citet{huang2017} used the operational ozone-profile product that coadded four spatial pixels along the track and hence had a nadir spatial resolution of $52\times48$ km$^2$; this study retrieves ozone profiles only at pixels collocated with ozonesonde stations with standard spatial resolution of the UV1 band ($13\times48$ km$^2$ at nadir) for the two-band case and resolution of the UV2 band ($13\times24$ km$^2$ at nadir) for the UV2-only case. As the soft calibration is turned off, the overall biases are slightly larger than the operational SAO ozone profile product.
+
+(2) As will be shown in Sect.~\ref{preflight_onorbit_diff_section}--\ref{slit_temporal_section}, the cross-track discrepancies between on-orbit and preflight slit functions are much more significant than the temporal variations of on-orbit slit functions over the OMI mission. Hence only the ``pre-RA'' period (2004--2008) is included in the validation to consistently compare all cross-track positions.
+
+(3) \citet{huang2017} only used cross-track positions 4--27 at the UV1 spatial resolution, whereas in this study all cross-track positions are included in the validation. The successful validations are further grouped according to the cross-track positions of the OMI ozone profiles. Figure~\ref{xtrack_numbers} shows the number of successful validations in the two-band case and UV2-only case over 2004--2008. On average, there are 135 successful validations per UV1 cross-track position for the two-band case and 74 successful validations per UV2 cross-track position for the UV2-only case.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/sonde_map_number_ns_cf0.png}
+\caption{The locations of the ozonesondes used in this study. The size of circles denotes the number of successful validations for the two-band case in 2004--2008, and the color denotes mean bias between the tropospheric ozone column from OMI and the ozonesonde convolved with the OMI AK.}
+\label{sonde_map}
+\end{figure*}
+
+\begin{figure}[t]
+\includegraphics[width=8.3cm]{figures/xtrack_numbers.pdf}
+\caption{Number of successful validations at different cross-track positions for the two-band case (blue) and UV2-only case (red) over 2004--2008.}
+\label{xtrack_numbers}
+\end{figure}
+
+\section{Difference between on-orbit and preflight slit functions\label{preflight_onorbit_diff_section}}
+
+The OMI solar irradiance is generally assumed to be stable, and many retrieval algorithms use the average or the first principle component of OMI irradiance spectra over multiple years to enhance the SNR~\citep{liu2010ozone,wang2014water,abad2015updated}. Figure~\ref{xtrack_compare} compares the FWHM of preflight slit functions with those of on-orbit slit functions derived from the average OMI irradiance over 2005--2007 at all three OMI bands. The ranges of preflight slit function FWHM within each fitting window are denoted by gray areas. Adding asymmetry factors in the on-orbit slit function fitting makes little difference in all fitting windows, indicating that the OMI slit functions are sufficiently symmetric, as noted by \citet{Beirle2016parameterizing}. For the UV1 band (the first row of Fig.~\ref{xtrack_compare}), the preflight slit functions are Gaussian, so only the standard Gaussian functions forms are fitted (fitting a stretch to the preflight slit functions is identical to fitting a standard Gaussian). At the low wavelength end ($270$--$277$ nm), the on-orbit slit functions are remarkably broader than the preflight ones toward the edges of cross-track positions, by up to $20~\%$. Similar effects are observed at the high wavelength end of the UV1 band ($299$--$309$ nm), although much less significant.
+
+% I am not sure about the stray light explanation. if it is true, can the stray light be interpreted as slit function change?
+% I'm also considering including a preflight-on-orbit fwhm comparison figure for all fitting windows in all three bands in the appendix
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/xtrack_compare_all.pdf}
+\caption{Comparisons of the FWHMs of on-orbit slit functions derived from the average OMI irradiance over 2005--2007 with the preflight ones for all three OMI bands, each divided into four fitting windows as shown in Fig.~\ref{ss_demo}. Because the preflight slit functions vary continuously with wavelength, the ranges of preflight slit function FWHMs within the spectral window are plotted as the gray bands. The super Gaussian shape parameter $k$ for the UV2 and VIS fitting windows are also shown with vertical axises on the right.}
+\label{xtrack_compare}
+\end{figure*}
+Panels in the second row of Fig.~\ref{xtrack_compare} show the results for the UV2 band, divided into four fitting windows, with the super Gaussian included. The on-orbit and preflight slit functions at the first half of the cross-track positions (1--30) for window 3 are plotted in Fig.~\ref{slit_shape}. The cross-track patterns are similar for all four fitting windows. The preflight slit functions show very little cross-track variation ($<1~\%$ in FWHM), whereas the FWHMs of standard Gaussians and the stretched preflight slit functions show a U-shaped cross-track dependency. The derived slit function FWHM at large off-track viewing angles are up to $5~\%$ broader than the nadir ones. The FWHM of super Gaussian is only weakly cross-track dependent, but the shape parameter $k$ has a strong reverse-U-shaped cross-track dependency. As illustrated more clearly in Fig.~\ref{slit_shape}, the derived on-orbit slit functions are broader toward the larger off-track viewing angles if only the widths are fitted; when the slit function shape can also be adjusted in the super Gaussian fitting, the broadening is redistributed towards the tails of the slit functions.
+
+Panels in the third row of Fig.~\ref{xtrack_compare} show the results for the VIS band. The preflight slit functions also have very little cross-track variation; the on-orbit slit functions capture some cross-track dependency but not as significant as the UV2 band. Fitting window 1 is an exception, where a reverse-U-shaped stretch factor and a U-shaped shape parameter $k$ are present.
+% considering adding an appendix figure showing xtrack slit width for more windows in the three OMI bands, also adding super gaussian for UV1
+% considering fwhm and fw1e; second thought: preflight use fwhm, let's keep it
+% considering plotting the range of preflight width over the window; done, beautifully
+
+
+
+\section{Temporal variation of OMI slit functions \label{slit_temporal_section}}
+
+The on-orbit variations of OMI slit functions have widely been deemed insignificant throughout the mission. By deriving on-orbit slit functions using the daily OMI solar irradiance, it is possible to verify this assumption. Figure~\ref{slitwidth_nft_t} presents the evolution of derived slit function widths for all cross-track positions from September 2004 to May 2016, where the three OMI bands are each divided into four fitting windows (see Fig.~\ref{ss_demo} for the window locations), and a standard Gaussian slit function is derived for each window. The super Gaussian and stretched preflight fits are also tested at selective cross-track positions and fitting windows. The fitted stretch factor and shape factor $k$ of super Gaussian have essentially the same temporal trends as the width of standard Gaussian, so only the widths of derived standard Gaussian are used to represent the slit function change. Significant temporal variations of the slit function widths can be observed at windows 1--2 of the UV1 band ($270$--$287$ nm, rows 1--2, column 1 of Fig.~\ref{slitwidth_nft_t}) and window 1 of the VIS band ($380$--$402$ nm, row 1, column 3 of Fig.~\ref{slitwidth_nft_t}).
+
+We assume that the high-resolution solar reference spectrum stays constant, because there have been no high-resolution solar reference spectra that incorporate the solar cycles available. However, this assumption does not hold near deep solar lines and at short wavelengths in the UV at the OMI resolution~\citep{marchenko2014solar,marchenko2016solar}. Since the true solar irradiance is assumed to be invariant, the relative changes of observed solar lines following the solar cycles will be interpreted as the slit function change in the fitting. As a result, the temporal variations seen in Fig.~\ref{slitwidth_nft_t} may result from solar cycles and not necessarily indicate the real changes of on-orbit slit functions.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/slitwidth_nft_t.png}
+\caption{Temporal variations of derived standard Gaussian slit function FWHM for all cross-track positions from September 2004 to May 2016. Three OMI bands (columns of the plot) are each divided into four fitting windows (rows of the plot). Spectral coverages of each window are also labeled in the title of each subplot.}
+\label{slitwidth_nft_t}
+\end{figure*}
+
+The solar activity can be represented by the OMI Mg II core-to-wing index, defined as the ratio between OMI irradiance at $280$ nm and the average irradiances at $277$ and $283$ nm. The OMI Mg II index has also been verified against other ground-based and space-borne solar observations~\citep{deland2013the}. The Mg II index is modulated by a distinct 11-year solar cycle and a 27-day solar rotation cycle, whose amplitude also varies due to variations in sunspots. Given the complex nature of solar activity, it is highly unlikely that any potential factors that may contribute to slit function change (e.g., instrument degradation, RA effects) are correlated with the Mg II index. To separate the spurious slit function changes due to insufficient consideration of solar activity with potential real changes, the derived slit function widths are plotted against the Mg II index for the aggregated rows that are not influenced by RA (non-RA rows) and influenced by RA (RA rows) in Figs.~\ref{solarscatternonRA}-\ref{solarscatterRA}, color-coded by time over 2004--2016. For the non-RA rows, the derived on-orbit slit function widths show linear correlations with the Mg II index for most windows throughout the mission (Fig.~\ref{solarscatternonRA}). Window 4 at UV1 is the only exception, where the derived width abruptly increased by $\sim 7~\%$ in April 2008. This change cannot be explained by solar activity or major RA events but occurred exactly when the SNR of the UV1 band started to decrease~\citep{huang2017}, so it is still possibly a secondary RA effect. The slopes between the relative changes of slit functions widths and relative change of the Mg II index are also labeled in Fig.~\ref{solarscatternonRA}. The slope is the largest ($0.50$--$0.51$, $95~\%$ confidence interval) for window 2 of the UV1 band (where the Mg II line is located), meaning that as the Mg II index varied by $10~\%$ from solar cycle minimum to maximum, the derived slit function width varied by $5~\%$. It is followed by window 1 of the UV1 band ($0.24$--$0.25$) and window 1 of the VIS band ($0.13$). Window 1 at UV1 has the shortest wavelength, and window 1 at VIS contains the strong Ca solar lines, so these two windows are also strongly influenced by solar activity. Most of the derived slit function changes can be explained by the Mg II index and hence solar activity variations (see the R$^2$ in the plot), and the residual variations are mostly random noise that increases with time as the instrument slowly degrades. Therefore, the apparent temporal variations in Fig.~\ref{slitwidth_nft_t} are due to solar activity, instead of real on-orbit slit function changes.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/shift_solar_scatter_non-RA.png}
+\caption{Scatter plots between the average slit function FWHM of all non-RA rows (assuming standard Gaussian) and the Mg II index. The columns and rows are the same as Fig.~\ref{slitwidth_nft_t}. The linear fitting slopes between the normalized slit function widths and the normalized Mg II index are shown in the title of each subplot.} %The Mg II index data are available at \url{https://sbuv2.gsfc.nasa.gov/solar/omi/}.}
+\label{solarscatternonRA}
+\end{figure*}
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/shift_solar_scatter_RA.png}
+\caption{The same as Fig.~\ref{solarscatternonRA} but for the RA rows. The ranges of vertical axises are the same as Fig.~\ref{solarscatternonRA} as well for easier comparison.}
+\label{solarscatterRA}
+\end{figure*}
+Although no significant RA impact on the derived slit functions can be observed from Fig.~\ref{slitwidth_nft_t}, the impact is visible when plotting the slit function widths of the RA rows against the Mg II index (Fig.~\ref{solarscatterRA}, in the same format as Fig.~\ref{solarscatternonRA}). Coincidently, both the solar minimum (also the minimum of the Mg II index) and the major RA events occurred in 2008--2009. Hence the impact of RA will be manifested as hysteresis in the scatter plots. In contrast to the non-RA rows, the derived slit function widths of the RA rows show different relationship with the Mg II index before and after the major RA event in January 2009, mostly notable at windows 1--3 of the UV1 band. Some extra hysteresis is observable but small ($0.3~\%$ of slit function width) at window 2 of the UV2 band and window 2 of the VIS band. Overall, the temporal variations of slit function widths for non-RA rows, if they exist, are no more than $1~\%$ and much smaller than differences between the preflight and on-orbit slit functions for all three OMI bands (Fig.~\ref{xtrack_compare}). The RA rows also did not show any significant temporal variations before the major RA events in 2009.
+
+
+\section{Validation of ozone profiles retrieved using different slit functions}
+\subsection{The two-band case}
+%%%% QUESTION FOR BRIAN: DO YOU WANT TO MENTION YOUR WORK OF USING MONTHLY IRRADIANCE??
+Figure~\ref{tsoc_xy} compares the SOC (first row), TOC (second row), and the tropospheric ozone column from surface to $500$ hPa (TOC500, third row) of OMI retrieved using four different options of slit functions with the ozonesonde data over 2004--2008. The standard/super Gaussian and the stretch preflight slit functions are derived using the mean solar irradiance over 2005--2007, and the slit functions are assumed to be invariant over time. For the SOC, the correlation coefficients between OMI and ozondsondes are similar for all slit functions, whereas the stretched preflight and super Gaussian options show smaller mean absolute biases ($-0.11$ and $-0.19$ DU) than the standard Gaussian option ($0.60$ DU), relative to the ozonesonde data. The preflight option shows the largest mean absolute bias ($-2.01$ DU) and the largest standard deviation ($13.48$ DU). For the TOC, the standard Gaussian retrieval shows the lowest mean bias ($1.89$ DU), followed by stretched preflight ($2.59$ DU) and the super Gaussian ($2.69$ DU). The standard and super Gaussian retrievals show better correlation coefficient ($0.85$), followed by the stretched preflight ($0.84$). When comparing the TOC500, the relationships between different slit functions are similar to TOC. For the mean absolute biases, standard Gaussian < stretched preflight $\approx$ super Gaussian < preflight. However, the correlation coefficient for the super Gaussian becomes slightly higher than the standard Gaussian.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/tsoc_xy_cconvol1_cf0.png}
+\caption{Scatter plots of OMI retrieved ozone partial columns vs. the ozonesonde data for SOC (first row), TOC (second row), and TOC500 (third row). The four columns represent retrievals using standard Gaussian, super Gaussian, the preflight, and stretched preflight slit functions. The slope and offset of the linear regression, correlation coefficient (R), and the mean bias $\pm 1\sigma$ ($\Delta$) are shown for each subplot. The linear regressions are shown as red lines, and the black dash line is the 1:1 line. The number of successful validations is $4056$ (same as for all slit functions, see Fig.~\ref{xtrack_numbers}).}
+\label{tsoc_xy}
+\end{figure*}
+
+As shown by Fig.~\ref{tsoc_xy}, the ozone partial columns retrieved using the preflight slit functions consistently show the lowest performance compared to the derived on-orbit slit functions. Figure~\ref{diff_prof_ns} illustrates the vertical distributions of biases between OMI and the ozonesonde profiles. The left panel shows the median biases between OMI profiles retrieved using four different slit functions and the ozonesondes; the right panel shows the standard deviation of the differences between different retrievals and ozonesonde data. The median bias of the a priori and the a priori error are also plotted for reference. The retrieval using preflight slit functions shows significant positive bias in the stratosphere, negative bias at upper troposphere/lower stratosphere (UT/LS), and positive bias in the lower troposphere. The retrieval using preflight slit functions also has much larger variations. The median biases show different vertical distributions between standard Gaussian and super Gaussian/stretched preflight with no much altitude-dependent variation for the standard Gaussian, and almost the same larger oscillations for the latter two. Unlike the median biases, the standard deviations of biases are very similar for retrievals using these three on-orbit slit function options.
+
+\begin{figure}[t]
+\includegraphics[width=8.3cm]{figures/diff_prof_all_ns.pdf}
+\caption{(Left) Median biases of OMI profiles retrieved using four different slit functions compared to the ozonesondes. The median difference between a priori profile and the ozonsonde data is also shown. (Right) Standard deviation of the differences between different retrievals and ozonesonde data. The a priori error is shown in the right panel.}
+\label{diff_prof_ns}
+\end{figure}
+
+The bias profiles between OMI and ozonesonde are further grouped according to the OMI cross-track positions, and the medians of bias profiles at each cross-track position are shown in the first row of Fig.~\ref{diff_xtrack}. The ozone profiles retrieved using the preflight slit functions show substantial cross-track dependent biases; the bias profile shown in Fig.~\ref{diff_prof_ns} can be largely attributed to the biases near the edges of the cross-track positions. The second and third rows of Fig.~\ref{diff_xtrack} present the fitting residual root-mean-square (RMS) of UV1 and UV2 fitting windows, respectively. Although the on-orbit slit functions show the largest difference from the preflight at the UV1 band (Fig.~\ref{xtrack_compare}), the fitting residuals at the UV1 band using different slit functions are very similar; the residual RMS values using the preflight slit functions are only marginally larger than retrievals using on-orbit slit functions. The insensitivity of fitting residuals to slit functions at the UV1 band is likely due to the smoothness of the ozone absorption cross-sections. The residual RMS at the UV2 band for the retrieval using the preflight slit functions, however, show a distinct U-shaped cross-track distribution, very different from the other retrievals. Apparently, the preflight slit functions are not accurate near the edges of the cross-track positions in this two-band test case. It should be emphasized that in this case the UV2 radiance spectra and preflight slit functions are co-added from 60 to 30 cross-track positions. The co-adding of adjacent radiance spectra defined at different wavelength grids introduces some effective broadening of slit functions, which may partially explain the mismatch of slit functions for the preflight retrieval at UV2. Therefore, the UV2-only case is also tested to avoid co-adding and test the UV2 slit functions only.
+
+%% I am always debating here whether to use the simple coadding or run another case to coadd every two adjacent UV2 spectra after interpolating them to a common wavelength grid. Currently I only show simple coadding, consistent with the operational algorithm.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/diff_rms_xtrack_ns.pdf}
+\caption{(First row)  Medians of difference profiles between OMI and ozonesondes at each cross-track position. (Second row) Distributions of fitting residual RMS at each cross track position for the UV1 band. (Third row) Same as the second row but for the UV2 band. The mean and standard derivation of all residual RMS are labeled in each subplot at row 2--3.}
+\label{diff_xtrack}
+\end{figure*}
+
+\subsection{The UV2-only case}
+%Therefore, the ozone profiles retrieved in this case are strongly self-correlated and direct comparison of partial columns may not be informative.
+When only using the UV2 window in the ozone profile retrieval, the DFS is reduced from $6$--$7$ to $1$--$2$ due to the lost of most stratospheric information content from UV1.  Figure~\ref{tsoc_xy_UV2} compares the SOC (first row) and TOC (second row) from OMI with ozonesondes. Given the low DFS, only the SOC and the TOC are validated. Similar to the two-band case, the retrieval using the preflight slit functions shows the largest absolute biases and lowest correlation with ozonesondes for both TOC and SOC. The standard Gaussian retrieval consistently shows higher correlation coefficients and lower standard deviations of biases compared to the other two forms of derived on-orbit slit functions that are supposed to better represent the true slit function shapes in UV2 (see Fig.~\ref{slit_shape}). The only exception is that the stretched preflight retrieval shows marginally better correlation coefficient than the standard Gaussian for the TOC.
+
+Figure~\ref{diff_prof_UV2} compares the medians and standard deviations of bias profiles from different retrievals, similar to Fig.~\ref{diff_prof_ns}. The retrieval using the preflight slit functions also shows the largest biases and standard deviations. The three derived on-orbit slit functions show different altitude-dependency in the median biases with the bias of stretched preflight similar to super Gaussian in shape but smaller in absolute value. The standard Gaussian shows the lowest standard derivations of the bias profiles, followed by stretched preflight and super Gaussian.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/tsoc_xy_cconvol1_cf0_UV2.png}
+\caption{Similar to Fig.~\ref{tsoc_xy} but for the UV2-only case. Only SOC and TOC are shown. The number of successful validations is $4461$ (same as for all slit functions, see Fig.~\ref{xtrack_numbers}).}
+\label{tsoc_xy_UV2}
+\end{figure*}
+
+\begin{figure}[t]
+\includegraphics[width=8.3cm]{figures/diff_prof_all_UV2.pdf}
+\caption{Same to Fig.~\ref{diff_prof_ns} but for the UV2-only case.}
+\label{diff_prof_UV2}
+\end{figure}
+
+Figure~\ref{diff_xtrack_UV2} shows the cross-track distributions of median bias profiles and fitting residual RMS for ozone-profile retrievals using the four different slit functions, similar to Fig.~\ref{diff_xtrack} but for UV2 only. The preflight retrieval again stands out with significant cross-track dependent biases, larger towards the edges of the cross-track positions. The RMS of the retrieval using preflight slit functions also show U-shaped cross-track dependency, but smaller than those in Fig.~\ref{diff_xtrack} due to no broadening of effective slit functions from coadding. These large RMS at both edges are mitigated by fitting a stretch to the preflight slit functions. The mean RMS of using super Gaussian and stretched preflight slit functions are slightly better than using the standard Gaussian, indicating that generally a broad-top slit function can better model the OMI spectra. However, the retrieval using standard Gaussian slit functions shows the smallest variations of biases and variations of residual RMS, which is not fully understood. It is possible that the slit function in radiance measurements cannot be fully represented by the on-orbit slit functions derived from the solar irradiance due to scence inhomogeneity~\citep{voors2006method,noel2012quantification}, unaccounted stray lights, or intra-orbit slit function changes (observed in GOME-2 by Beirle et al. 2017) in earthshine spectra.
+
+% I'm not satisfied with the last two sentences, but have no better explanation.
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/diff_rms_xtrack_UV2.pdf}
+\caption{Similar to Fig.\ref{diff_xtrack} but for the UV2 band only. Note there are 60, instead of 30 cross-track positions.}
+\label{diff_xtrack_UV2}
+\end{figure*}
+
+\conclusions  %% \conclusions[modified heading if necessary]
+%It is at this stage unclear whether a homogeneous broadening or a relative broadening
+The accurate characterization of slit functions is essential for the spectral calibration of space-borne grating spectrometers and the retrieval of the Earth’s atmospheric constituents.
+We derive on-orbit slit functions by fitting the OMI irradiance spectra with a high-resolution solar reference spectrum and various assumptions on slit function forms, including standard and super Gaussian functions and a homogeneous stretch to the preflight slit functions. The on-orbit slit functions derived from multi-year averaged OMI solar irradiance show U-shaped cross-track dependences at the UV bands that cannot be fully represented by the preflight slit functions. The FWHMs of the stretched preflight slit functions of detector pixels at large viewing angles are up to $20~\%$ larger than the nadir ones for the UV1 band and $5~\%$ larger for the UV2 band. When fitting super-Gaussian slit functions in the UV2 band, the cross-track variations of FWHM are much smaller, but the cross-track variations of the shape parameter $k$ are significant. The derived on-orbit slit functions using daily OMI solar irradiance from 2004 to 2016 show little temporal variations after taking account of the impact of solar activity. Overall, these temporal variations for non-RA rows, if they exist, are no more than $1~\%$ and much smaller than differences between the preflight and on-orbit slit functions for all three OMI bands. The RA rows also did not show any significant temporal variations before the major RA events in 2009.
+
+Considering the insignificant temporal variations of on-orbit slit functions, the slit functions derived from the multi-year average OMI solar irradiance are applied in the SAO ozone-profile retrieval, and the results are compared with the retrieval using the preflight slit functions. Two cases are tested: one is to keep the same options of the operational algorithm whenever possible, and the other one is to use only the UV2 band to avoid coadding the UV2 spectra and eliminate the interaction between UV1 and UV2. The retrievals using derived on-orbit slit functions consistently show smaller biases and better correlations with the ozonesonde validations in both cases. Although the on-orbit slit functions show larger difference from the preflight in the UV1 band, the impact of slit functions on the ozone-profile retrieval is dominated by the UV2 band, due to the more complicated structure of ozone absorption cross-section in UV2. The UV-2 only test case has direct implications for other OMI products that use the UV2 band, such as SO$_2$, HCHO, and BrO. The on-orbit slit functions of the OMI VIS band also have cross-track discrepancies compared to the preflight, although less significant. Future comparisons of retrievals using different slit functions will be performed in the VIS band with well-validated algorithms, such as the water vapor retrieval~\citep{wang2016validation}.
+
+It is challenging to characterize the slit functions of 2-D detectors of OMI-like instruments, as the slit functions vary in both the wavelength (the column dimension) and cross-track viewing dimension (the row dimension) and more critically, may vary over time. Future work will involve characterizing the differences between the slit functions derived from solar irradiance and the slit functions of earthshine radiance. These differences may be caused by scene heterogeneity, differences in stray light between irradiance and radiance, and intra-orbit instrumental changes. It is possible to linearize the slit function fitting by constructing ``pseudo-absorbers'' based on derivatives of slit functions and including them in the radiance fitting~\citep{Beirle2016parameterizing}. Accurate knowledge of the on-orbit slit functions, as demonstrated in this work, will also be important for the near-future missions that have more spatial pixels and higher retrieval targets than OMI (TROPOMI/Sentinel-5p, Sentinel-5, Sentinel-4, GEMS, and TEMPO). %The TROPOMI instrument on board the Sentinel-5 Precursor mission will have more than $400$ cross-track positions for the majority of its spectral bands. The geostationary constellations (TEMPO over North America, Sentinel-4 over Europe and GEMS over East Asia) will
+
+%\section{Data availability}% KNMI solar and preflight slit function data sources?
+
+%The SAO2010 solar reference spectrum is available at \url{http://www.cfa.harvard.edu/atmosphere/links/sao2010.solref.converted}. The KNMI solar reference spectrum is available at
+
+
+
+\begin{acknowledgements}
+This paper is supported by NASA’s Atmospheric Composition: Aura Science Team program (sponsor contract numbers NNX14AF16G and NNX14AF56G). We acknowledge Sergey Marchenko and Matthew DeLand at NASA and Science Systems and Applications, Inc. for making the solar proxy index available at \url{https://sbuv2.gsfc.nasa.gov/solar/omi/}. We thank Sergy Marchenko for discussions on the OMI solar data products. We thank Caroline Nowlan, Christopher Chan Miller, and Huiqun Wang at the Smithsonian Astrophysical Observatory (SAO), Steffen Beirle at the Max Planck Institute for Chemistry (MPI-C), and Can Li at NASA GSFC for helpful discussions on slit function parameterizations. The OMI International Science Team is acknowledged for making OMI L1B data available at
+\url{https://disc.gsfc.nasa.gov/Aura/data-holdings/OMI/}. We also thank the ozonesonde  providers and their funding agencies for making the ozonesonde measurements, as well as the Aura Validation Data Center (AVDC), World Ozone and Ultraviolet Radiation Data Center (WOUDC), and the Southern Hemisphere ADditional OZonesonde (SHADOZ) for archiving the ozonesonde data.
+\end{acknowledgements}
+
+
+\bibliographystyle{copernicus}
+\bibliography{omi.bib}
+\end{document}
+
+\appendix
+\section{Detailed comparisons of preflight and on-orbit slit functions for different fitting windows}    %% Appendix A
+Figure~\ref{xtrack_compared_all} compares the on-orbit slit functions with the preflight for all three OMI bands at the spectral windows defined in Fig.~\ref{ss_demo}. Multi-year average OMI irradiance is used in the fitting. The UV1 band shows large variations in the spectral dimension for both on-orbit and preflight slit functions. The UV2 band consistently shows U-shaped stretch factor when fitting a homogeneous of preflight slit functions and reverse-U-shaped shape parameter $k$ in the super-Gaussian fitting. The on-orbit slit functions do not show distinct cross-track variation patterns, except for fitting window 1, where reverse-U-shaped stretch factor and U-shaped shape parameter are present.
+%\subsection{}     %% Appendix A1, A2, etc.
+
+\appendixfigures  %% needs to be added in front of appendix figures in one-column style (\documentclass[acp, manuscript]{copernicus})
+
+\begin{figure*}[tbhp]
+\includegraphics[width=12cm]{figures/xtrack_compare_all.pdf}
+\caption{Comparison of the FWHM of on-orbit slit functions derived from the average OMI irradiance over 2005--2007 with the preflight ones for all three OMI bands, each divided into four fitting windows as shown in Fig.~\ref{ss_demo}. Because the preflight slit functions vary continuously with wavelength, the ranges of preflight slit function FWHM within the spectral window are plotted as the gray bands. The super Gaussian shape parameter $k$ for the UV2 and VIS fitting windows are also shown.}
+\label{xtrack_compared_all}
+\end{figure*}
+
+
+\section{Code availability}
+TEXT
+
+
+
+
+\appendixtables   %% needs to be added in front of appendix tables in one-column style (\documentclass[acp, manuscript]{copernicus})
+
+
+
+
+\authorcontribution{TEXT}
+
+\competinginterests{TEXT}
+
+\disclaimer{TEXT}
+
+
+
+
+
+%% REFERENCES
+
+
+
+%% Since the Copernicus LaTeX package includes the BibTeX style file copernicus.bst,
+%% authors experienced with BibTeX only have to include the following two lines:
+%%
+%%
+%% URLs and DOIs can be entered in your BibTeX file as:
+%%
+%% URL = {http://www.xyz.org/~jones/idx_g.htm}
+%% DOI = {10.5194/xyz}
+
+
+%% LITERATURE CITATIONS
+%%
+%% command                        & example result
+%% \citet{jones90}|               & Jones et al. (1990)
+%% \citep{jones90}|               & (Jones et al., 1990)
+%% \citep{jones90,jones93}|       & (Jones et al., 1990, 1993)
+%% \citep[p.~32]{jones90}|        & (Jones et al., 1990, p.~32)
+%% \citep[e.g.,][]{jones90}|      & (e.g., Jones et al., 1990)
+%% \citep[e.g.,][p.~32]{jones90}| & (e.g., Jones et al., 1990, p.~32)
+%% \citeauthor{jones90}|          & Jones et al.
+%% \citeyear{jones90}|            & 1990
+
+
+
+%% FIGURES
+
+%% We suggest to put the figures in the correct order and placement within the text. This aids readability.
+%% When figures and tables are placed at the end of the MS (article in one-column style), please add \clearpage
+%% between bibliography and first table and/or figure as well as between each table and/or figure.
+
+
+%% ONE-COLUMN FIGURES
+
+%%f
+%\begin{figure}[t]
+%\includegraphics[width=8.3cm]{FILE NAME}
+%\caption{TEXT}
+%\end{figure}
+%
+%%% TWO-COLUMN FIGURES
+%
+%%f
+%\begin{figure*}[t]
+%\includegraphics[width=12cm]{FILE NAME}
+%\caption{TEXT}
+%\end{figure*}
+%
+%
+%%% TABLES
+%%%
+%%% The different columns must be seperated with a & command and should
+%%% end with \\ to identify the column brake.
+%
+%%% ONE-COLUMN TABLE
+%
+%%t
+%\begin{table}[t]
+%\caption{TEXT}
+%\begin{tabular}{column = lcr}
+%\tophline
+%
+%\middlehline
+%
+%\bottomhline
+%\end{tabular}
+%\belowtable{} % Table Footnotes
+%\end{table}
+%
+%%% TWO-COLUMN TABLE
+%
+%%t
+%\begin{table*}[t]
+%\caption{TEXT}
+%\begin{tabular}{column = lcr}
+%\tophline
+%
+%\middlehline
+%
+%\bottomhline
+%\end{tabular}
+%\belowtable{} % Table Footnotes
+%\end{table*}
+%
+%
+%%% MATHEMATICAL EXPRESSIONS
+%
+%%% All papers typeset by Copernicus Publications follow the math typesetting regulations
+%%% given by the IUPAC Green Book (IUPAC: Quantities, Units and Symbols in Physical Chemistry,
+%%% 2nd Edn., Blackwell Science, available at: http://old.iupac.org/publications/books/gbook/green_book_2ed.pdf, 1993).
+%%%
+%%% Physical quantities/variables are typeset in italic font (t for time, T for Temperature)
+%%% Indices which are not defined are typeset in italic font (x, y, z, a, b, c)
+%%% Items/objects which are defined are typeset in roman font (Car A, Car B)
+%%% Descriptions/specifications which are defined by itself are typeset in roman font (abs, rel, ref, tot, net, ice)
+%%% Abbreviations from 2 letters are typeset in roman font (RH, LAI)
+%%% Vectors are identified in bold italic font using \vec{x}
+%%% Matrices are identified in bold roman font
+%%% Multiplication signs are typeset using the LaTeX commands \times (for vector products, grids, and exponential notations) or \cdot
+%%% The character * should not be applied as mutliplication sign
+%
+%
+%%% EQUATIONS
+%
+%%% Single-row equation
+%
+%\begin{equation}
+%
+%\end{equation}
+%
+%%% Multiline equation
+%
+%\begin{align}
+%& 3 + 5 = 8\\
+%& 3 + 5 = 8\\
+%& 3 + 5 = 8
+%\end{align}
+%
+%
+%%% MATRICES
+%
+%\begin{matrix}
+%x & y & z\\
+%x & y & z\\
+%x & y & z\\
+%\end{matrix}
+%
+%
+%%% ALGORITHM
+%
+%\begin{algorithm}
+%\caption{?}
+%\label{a1}
+%\begin{algorithmic}
+%?
+%\end{algorithmic}
+%\end{algorithm}
+%
+%
+%%% CHEMICAL FORMULAS AND REACTIONS
+%
+%%% For formulas embedded in the text, please use \chem{}
+%
+%%% The reaction environment creates labels including the letter R, i.e. (R1), (R2), etc.
+%
+%\begin{reaction}
+%%% \rightarrow should be used for normal (one-way) chemical reactions
+%%% \rightleftharpoons should be used for equilibria
+%%% \leftrightarrow should be used for resonance structures
+%\end{reaction}
+%
+%
+%%% PHYSICAL UNITS
+%%%
+%%% Please use \unit{} and apply the exponential notation
+
+
+\end{document}
